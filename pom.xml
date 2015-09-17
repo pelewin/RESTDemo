@@ -6,7 +6,7 @@
 	<groupId>org.pelevin</groupId>
 	<artifactId>rest</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
 	<name>demo</name>
 	<description>Customer RESTfull app</description>
