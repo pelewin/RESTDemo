@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(HttpStatus.NOT_FOUND)
 public class EntityNotFoundException extends RuntimeException {
 
-	public EntityNotFoundException(Class vo, Long id) {
+	public EntityNotFoundException(Class vo, String id) {
 		super("could not find " + vo.getSimpleName() + " id:" + id + "'.");
 	}
 

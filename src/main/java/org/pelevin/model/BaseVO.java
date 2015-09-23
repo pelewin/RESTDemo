@@ -1,19 +1,16 @@
 package org.pelevin.model;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import org.springframework.data.annotation.Id;
 
 /**
  * Created by dmitry on 29.08.15.
  */
-@MappedSuperclass
 abstract public class BaseVO {
-	@Id
-	@GeneratedValue
-	private Long id;
 
-	public Long getId() {
+	@Id
+	private String id;
+
+	public String getId() {
 		return id;
 	}
 

@@ -39,7 +39,7 @@ public class CustomerRestController {
 	}
 
 	@RequestMapping(value = "/{customerId}", method = RequestMethod.GET)
-	CustomerVO readCustomer(@PathVariable Long customerId) {
+	CustomerVO readCustomer(@PathVariable String customerId) {
 		return findById(customerId);
 	}
 
@@ -49,7 +49,7 @@ public class CustomerRestController {
 	}
 
 	@RequestMapping(value = "/{customerId}", method = RequestMethod.PUT)
-	ResponseEntity<?>  updateCustomer(@PathVariable Long customerId, @RequestBody CustomerVO input) {
+	ResponseEntity<?>  updateCustomer(@PathVariable String customerId, @RequestBody CustomerVO input) {
 
 		CustomerVO customerVO = findById(customerId);
 		customerVO.setName(input.getName());
@@ -65,12 +65,12 @@ public class CustomerRestController {
 	}
 
 	@RequestMapping(value = "/{customerId}", method = RequestMethod.DELETE)
-	void deleteCustomer(@PathVariable Long customerId) {
+	void deleteCustomer(@PathVariable String customerId) {
 		findById(customerId);
 		this.customerRepository.delete(customerId);
 	}
 
-	private CustomerVO findById(Long customerId) {
+	private CustomerVO findById(String customerId) {
 		return this.customerRepository.findById(customerId).orElseThrow(
 				() -> new EntityNotFoundException(CustomerVO.class, customerId));
 	}

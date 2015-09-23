@@ -1,11 +1,11 @@
 package org.pelevin.model;
 
-import javax.persistence.Entity;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * Created by dmitry on 27.08.15.
  */
-@Entity(name = "Customers")
+@Document(collection = "customers")
 public class CustomerVO extends BaseVO {
 
 	private String name;
