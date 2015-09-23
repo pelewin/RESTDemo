@@ -1,8 +1,8 @@
-package org.pelevin.controllers;
+package org.pelevin.web;
 
 import org.pelevin.exceptions.EntityNotFoundException;
 import org.pelevin.model.CustomerVO;
-import org.pelevin.repositories.CustomerRepository;
+import org.pelevin.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -19,17 +19,17 @@ import java.util.Collection;
 @RequestMapping("/customers")
 public class CustomerRestController {
 
-	private final CustomerRepository customerRepository;
+	private final CustomerService customerService;
 
 	@Autowired
-	public CustomerRestController(CustomerRepository customerRepository) {
-		this.customerRepository = customerRepository;
+	public CustomerRestController(CustomerService customerService) {
+		this.customerService = customerService;
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
 	ResponseEntity<?> addCustomer(@RequestBody CustomerVO input) {
 
-		CustomerVO result = customerRepository.save(input);
+		CustomerVO result = customerService.save(input);
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.setLocation(ServletUriComponentsBuilder
 							.fromCurrentRequest().path("/{id}")
@@ -45,7 +45,7 @@ public class CustomerRestController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	Collection<CustomerVO> readCustomers() {
-		return this.customerRepository.findAll();
+		return this.customerService.findAll();
 	}
 
 	@RequestMapping(value = "/{customerId}", method = RequestMethod.PUT)
@@ -55,7 +55,7 @@ public class CustomerRestController {
 		customerVO.setName(input.getName());
 		customerVO.setAddress(input.getAddress());
 		customerVO.setTelephoneNumber(input.getTelephoneNumber());
-		customerRepository.save(input);
+		customerService.save(input);
 
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.setLocation(ServletUriComponentsBuilder
@@ -67,11 +67,11 @@ public class CustomerRestController {
 	@RequestMapping(value = "/{customerId}", method = RequestMethod.DELETE)
 	void deleteCustomer(@PathVariable String customerId) {
 		findById(customerId);
-		this.customerRepository.delete(customerId);
+		this.customerService.delete(customerId);
 	}
 
 	private CustomerVO findById(String customerId) {
-		return this.customerRepository.findById(customerId).orElseThrow(
+		return this.customerService.findById(customerId).orElseThrow(
 				() -> new EntityNotFoundException(CustomerVO.class, customerId));
 	}
 

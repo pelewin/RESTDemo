@@ -68,7 +68,7 @@ public class CustomerRestControllerTest {
 	public void setup() throws Exception {
 		this.mockMvc = webAppContextSetup(webApplicationContext).build();
 
-		this.customerRepository.deleteAllInBatch();
+		this.customerRepository.deleteAll();
 
 		this.customerList.add(customerRepository.save(new CustomerVO("Peter", "abc", "123")));
 		this.customerList.add(customerRepository.save(new CustomerVO("Mike", "xyz", "456")));
@@ -80,7 +80,7 @@ public class CustomerRestControllerTest {
 				+ this.customerList.get(0).getId()))
 				.andExpect(status().isOk())
 				.andExpect(content().contentType(contentType))
-				.andExpect(jsonPath("$.id", is(this.customerList.get(0).getId().intValue())))
+				.andExpect(jsonPath("$.id", is(this.customerList.get(0).getId())))
 				.andExpect(jsonPath("$.name", is("Peter")))
 				.andExpect(jsonPath("$.address", is("abc")))
 				.andExpect(jsonPath("$.telephoneNumber", is("123")));
@@ -92,11 +92,11 @@ public class CustomerRestControllerTest {
 				.andExpect(status().isOk())
 				.andExpect(content().contentType(contentType))
 				.andExpect(jsonPath("$", hasSize(2)))
-				.andExpect(jsonPath("$[0].id", is(this.customerList.get(0).getId().intValue())))
+				.andExpect(jsonPath("$[0].id", is(this.customerList.get(0).getId())))
 				.andExpect(jsonPath("$[0].name", is("Peter")))
 				.andExpect(jsonPath("$[0].address", is("abc")))
 				.andExpect(jsonPath("$[0].telephoneNumber", is("123")))
-				.andExpect(jsonPath("$[1].id", is(this.customerList.get(1).getId().intValue())))
+				.andExpect(jsonPath("$[1].id", is(this.customerList.get(1).getId())))
 				.andExpect(jsonPath("$[1].name", is("Mike")))
 				.andExpect(jsonPath("$[1].address", is("xyz")))
 				.andExpect(jsonPath("$[1].telephoneNumber", is("456")));
@@ -134,7 +134,7 @@ public class CustomerRestControllerTest {
 				.content(customerJson))
 				.andExpect(status().isOk())
 				.andExpect(content().contentType(contentType))
-				.andExpect(jsonPath("$.id", is(this.customerList.get(0).getId().intValue())))
+				.andExpect(jsonPath("$.id", is(this.customerList.get(0).getId())))
 				.andExpect(jsonPath("$.name", is("David")))
 				.andExpect(jsonPath("$.address", is("aaa")))
 				.andExpect(jsonPath("$.telephoneNumber", is("111")));
